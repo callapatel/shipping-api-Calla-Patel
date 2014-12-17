@@ -29,6 +29,10 @@ gem 'spring',        group: :development
 gem 'active_shipping'
 
 gem 'activemerchant'
+
+group :development, :test do
+  gem "rspec-rails"
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
