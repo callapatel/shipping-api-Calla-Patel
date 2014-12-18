@@ -2,13 +2,11 @@ class QuotesController < ApplicationController
   require './lib/shipping'
 
   def index
-    x = Shipping.new
-    x.origin
-    x.destination
-    x.packages
+    x = Shipping.new(params[:country], params[:state], params[:city], params[:zip], params[:weight])
     x.credentials
     @v = x.est_ups
     @y = x.est_usps
+
     render :json => { @v => @v,
          @y => @y}
 

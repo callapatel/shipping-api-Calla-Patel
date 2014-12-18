@@ -1,6 +1,10 @@
-require 'active_shipping'
 include ActiveMerchant::Shipping
 class Shipping
+
+  def initialize(country, state, city, zip, weight)
+    @destination = destination(country, state, city, zip)
+    @packages = packages(weight)
+  end
 
   def origin
     Location.new(:country => 'US',
@@ -9,25 +13,24 @@ class Shipping
                  :zip => '95134')
   end
 
-  def destination
-    #Location.new(params_hash[:address])
-    Location.new(:country => 'US',
-                  :state => 'TX',
-                  :city => 'kemah',
-                  :zip => '77565')
+  def destination(country, state, city, zip)
+    Location.new(:country => country,
+                  :state => state,
+                  :city => city,
+                  :zip => zip)
   end
 
-  def packages
-    Package.new( 100,
+  def packages(weight)
+    Package.new( weight.to_i,
                  nil,
                  :cylinder => true)
   end
 
   def credentials
     ups = UPS.new(:login => 'auntjudy', :password => 'secret', :key => ENV["UPS_KEY"])
-    @response1 = ups.find_rates(origin, destination, packages)
+    @response1 = ups.find_rates(origin, @destination, @packages)
     usps = USPS.new(:login => ENV["USPS_KEY"])
-    @response2 = usps.find_rates(origin, destination, packages)
+    @response2 = usps.find_rates(origin, @destination, @packages)
 
   end
 
