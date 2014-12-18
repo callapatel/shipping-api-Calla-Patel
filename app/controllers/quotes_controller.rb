@@ -8,7 +8,7 @@ class QuotesController < ApplicationController
     @y = x.est_usps
 
     respond to do |format|
-      format.json {render json: @v + @y}
+      format.json {render json: @v}
     end
 
   end
