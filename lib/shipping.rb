@@ -22,7 +22,7 @@ class Shipping
 
   def packages(weight)
     Package.new( weight.to_i,
-                 nil,
+                 [15, 10, 4.5],
                  :cylinder => true)
   end
 
