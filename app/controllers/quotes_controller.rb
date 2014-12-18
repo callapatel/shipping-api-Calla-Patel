@@ -7,8 +7,9 @@ class QuotesController < ApplicationController
     @v = x.est_ups
     @y = x.est_usps
 
-    render :json => { @v => @v,
-         @y => @y}
+    respond to do |format|
+      format.json {render json: @v + @y}
+    end
 
   end
 end
