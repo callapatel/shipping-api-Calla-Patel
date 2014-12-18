@@ -6,10 +6,10 @@ class QuotesController < ApplicationController
     x.credentials
     @v = x.est_ups
     @y = x.est_usps
+    @z = @v + @y
 
-    respond to do |format|
-      format.json {render json: @v}
-    end
+    render json: @z
+
 
   end
 end
